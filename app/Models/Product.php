@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Cknow\Money\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +22,10 @@ class Product extends Model
     public function price()
     {
         return $this->hasOne(Money::class);
+    }
+
+    public function productAttributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
     }
 }

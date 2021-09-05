@@ -16,6 +16,7 @@ class ProductSeeder extends Seeder
     {
         Product::factory()
             ->count(10)
+            ->hasProductAttributes(mt_rand(2,5))
             ->create();
     }
 }

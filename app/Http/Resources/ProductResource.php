@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Models\Money;
+use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -16,6 +18,10 @@ class ProductResource extends JsonResource
         $product = parent::toArray($request);
 
         $product['price'] = Money::find($product['price_id']);
+
+        $productAttributes = ProductAttribute::where('product_id',$product['id'])->get();
+
+        $product['product_attributes'] = $productAttributes;
 
         unset($product['price_id']);
 

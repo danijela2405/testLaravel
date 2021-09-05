@@ -17,7 +17,7 @@ class StoreResource extends JsonResource
     {
         $store = parent::toArray($request);
 
-        $products = Product::find(['store_id' => $store['id']]);
+        $products = Product::where('store_id',$store['id'])->get();
         $store['products'] = ProductResource::collection($products);
 
         return $store;
