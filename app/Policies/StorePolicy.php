@@ -30,7 +30,7 @@ class StorePolicy
      */
     public function update(User $user, Store $store)
     {
-        return $store->user_id = $user->id;
+        return $store->user_id == $user->id;
     }
 
     /**
@@ -42,6 +42,6 @@ class StorePolicy
      */
     public function delete(User $user, Store $store)
     {
-        return $store->user_id = $user->id;
+        return $store->user_id == $user->id;
     }
 }

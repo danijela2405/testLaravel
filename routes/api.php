@@ -31,3 +31,4 @@ Route::group([
 
 Route::apiResource('stores', StoreController::class);
 Route::apiResource('products', ProductController::class);
+Route::apiResource('reservations', \App\Http\Controllers\ReservationController::class);

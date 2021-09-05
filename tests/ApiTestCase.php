@@ -18,7 +18,7 @@ class ApiTestCase extends TestCase
 
     public function loginCustomer()
     {
-        $user = User::firstOrCreate(['role' => 'user']);
+        $user = User::find(2);
         $this->actingAs($user, 'api');
     }
 }

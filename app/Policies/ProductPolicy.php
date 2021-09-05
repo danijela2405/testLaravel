@@ -30,7 +30,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return $product->store->user_id = $user->id;
+        return $product->store->user_id == $user->id;
     }
 
     /**
@@ -42,6 +42,6 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $product->store->user_id = $user->id;
+        return $product->store->user_id == $user->id;
     }
 }

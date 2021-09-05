@@ -63,7 +63,7 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($response = $this->isUserAllowedToUpdate()) {
+        if ($response = $this->isUserAllowedToUpdate(Store::class)) {
             return $response;
         }
 

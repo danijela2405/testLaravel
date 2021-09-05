@@ -13,7 +13,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function isUserAllowedToUpdate($class = null)
+    protected function isUserAllowedToUpdate($class)
     {
         $user = Auth::user();
 
@@ -21,7 +21,7 @@ class Controller extends BaseController
             return response()->json('Only a logged in user is allowed here!', 403);
         }
 
-        if ($user->cant('update', $class)) {
+        if ($user->cant('update', [$user, $class])) {
             return response()->json('You are not allowed to do this action', 403);
         }
 
@@ -52,6 +52,21 @@ class Controller extends BaseController
         }
 
         if ($user->cannot('delete', $class)) {
+            return response()->json('You are not allowed to do this action', 403);
+        }
+
+        return null;
+    }
+
+    protected function isUserAllowedToView($class = null)
+    {
+        $user = Auth::user();
+
+        if (!$user instanceof User) {
+            return response()->json('Only a logged in user is allowed here!', 403);
+        }
+
+        if ($user->cannot('view', $class)) {
             return response()->json('You are not allowed to do this action', 403);
         }
 
