@@ -17,6 +17,7 @@ class CreateStoresTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->integer('user_id')->unsigned()->nullable();
         });
     }
 
