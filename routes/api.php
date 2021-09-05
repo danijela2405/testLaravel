@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,4 @@ Route::group([
 });
 
 Route::apiResource('stores', StoreController::class);
+Route::apiResource('products', ProductController::class);

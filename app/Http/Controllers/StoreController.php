@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StoreCollectionResource;
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,13 +11,11 @@ use Illuminate\Support\Facades\Auth;
 class StoreController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return StoreCollectionResource
      */
     public function index()
     {
-        return response()->json(Store::all(), 200);
+        return new StoreCollectionResource(Store::all());
     }
 
     /**
@@ -49,11 +49,11 @@ class StoreController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return StoreResource
      */
     public function show($id)
     {
-        return response()->json(Store::find($id), 200);
+        return new StoreResource(Store::find($id));
     }
 
     /**

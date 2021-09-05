@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\Money;
 use App\Models\Product;
-use App\Models\Store;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class StoreFactory extends Factory
+class ProductFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Store::class;
+    protected $model = Product::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +23,10 @@ class StoreFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company(),
+            'name' => $this->faker->words(3, true),
+            'quantity' => $this->faker->numberBetween(100,200),
+            'price_id' => Money::factory()->create()->id,
+            'store_id' => 1
         ];
     }
 }
