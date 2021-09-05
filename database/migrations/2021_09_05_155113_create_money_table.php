@@ -18,6 +18,7 @@ class CreateMoneyTable extends Migration
             $table->timestamps();
             $table->string('currency');
             $table->string('value');
+            $table->integer('product_id')->unsigned()->nullable();
         });
     }
 

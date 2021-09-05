@@ -12,10 +12,16 @@ class Money extends Model
 
     protected $fillable = [
         'value',
-        'currency'
+        'currency',
+        'product_id'
     ];
 
     protected $casts = [
         'value' => MoneyCast::class . ':currency',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

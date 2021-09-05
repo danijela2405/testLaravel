@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,7 +27,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($response = $this->isUserAllowedToCreate(Product::class)) {
+            return $response;
+        }
+
+        $request->validate(
+            [
+                'name' => 'required',
+                'quantity' => 'required',
+                'price' => 'required',
+                'product_attributes' => 'array|min:2',
+            ]
+        );
+
+        $user = Auth::user();
+        $store = $user->stores()->first();
+
+        $data = $request->all();
+
+        $product = Product::factory()->createFromRequest($data, $store);
+
+        return new ProductResource($product);
     }
 
     /**
@@ -46,17 +68,38 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        if ($response = $this->isUserAllowedToUpdate(Product::class)) {
+            return $response;
+        }
+
+        $request->validate(
+            [
+                'name' => 'required',
+                'quantity' => 'required',
+                'price' => 'required',
+                'product_attributes' => 'array|min:2',
+            ]
+        );
+
+        $data = $request->all();
+
+        $product = Product::factory()->updateFromRequest($data, $product);
+
+        return new ProductResource($product);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Product $product)
     {
-        //
+        if ($response = $this->isUserAllowedToDelete(Product::class)) {
+            return $response;
+        }
+
+        $product->delete();
+
+        return response()->json('Successfully deleted', 200);
     }
 }

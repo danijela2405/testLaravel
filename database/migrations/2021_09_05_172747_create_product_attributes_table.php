@@ -18,7 +18,7 @@ class CreateProductAttributesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('value');
-            $table->integer('product_id')->unsigned();
+            $table->integer('product_id')->unsigned()->nullable();
         });
     }
 
