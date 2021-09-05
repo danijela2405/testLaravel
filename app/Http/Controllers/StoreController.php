@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -62,6 +63,10 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($response = $this->isUserAllowedToUpdate()) {
+            return $response;
+        }
+
         $request->validate([
             'name'=>'required'
         ]);

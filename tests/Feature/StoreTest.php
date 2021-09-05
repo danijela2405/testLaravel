@@ -41,7 +41,20 @@ class StoreTest extends ApiTestCase
         $response->assertStatus(201);
     }
 
-    public function test_edit_store()
+    public function test_edit_store_as_customer()
+    {
+        $this->loginCustomer();
+
+        $data = [
+            'name' => 'test store2'
+        ];
+
+        $response = $this->put('/api/stores/1', $data);
+
+        $response->assertStatus(403);
+    }
+
+    public function test_edit_store_as_owner()
     {
         $this->loginOwner();
 
@@ -51,6 +64,6 @@ class StoreTest extends ApiTestCase
 
         $response = $this->put('/api/stores/1', $data);
 
-        $response->assertStatus(200);
+        $response->assertStatus(403);
     }
 }
