@@ -44,6 +44,10 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    protected $attributes = [
+        'role' => 'user',
+    ];
+
     public function stores()
     {
         return $this->hasMany(Store::class);
